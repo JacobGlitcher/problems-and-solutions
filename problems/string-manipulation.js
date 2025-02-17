@@ -6,13 +6,13 @@ function reverseString(str) {
 console.log(reverseString('Hello World!'))
 
 function reverseStringManual(str) {
-  let result = '';
+  let result = ''
 
   for (let i = str.length - 1; i >= 0; i--) {
-    result += str[i];
+    result += str[i]
   }
 
-  return result;
+  return result
 }
 
 console.log(reverseStringManual('Hello World!'))
@@ -50,9 +50,9 @@ function isPalindromeManual(str) {
 console.log(isPalindromeManual('ata'))
 
 function isPalindromeAdvanced(str) {
-  str = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  str = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
 
-  if (str.length <= 1) return true;
+  if (str.length <= 1) return true
 
   let left = 0
   let right = str.length - 1
@@ -66,11 +66,45 @@ function isPalindromeAdvanced(str) {
     right--
   }
 
-  return true;
+  return true
 }
 
 console.log(isPalindromeAdvanced('ata'))
 
+// check anagram
+function isAnagram(str1, str2) {
+  const normalize = (str) => str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
 
+  let normalizedStr1 = normalize(str1)
+  let normalizedStr2 = normalize(str2)
 
+  if (normalizedStr1.length !== normalizedStr2.length) return false
 
+  for (let i = 0; i < normalizedStr1.length; i++) {
+    if (normalizedStr2.includes(normalizedStr1[i])) {
+      normalizedStr2 = normalizedStr2.replace(normalizedStr1[i], '')
+    } else {
+      return false
+    }
+  }
+
+  return !normalizedStr2.length
+}
+
+function isAnagramFaster(str1, str2) {
+  const normalize = (str) => str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
+  const normalizedStr1 = normalize(str1)
+  const normalizedStr2 = normalize(str2)
+
+  return normalizedStr1.split('').sort().join('') === normalizedStr2.split('').sort().join('')
+}
+
+console.group()
+console.log(isAnagram("listen", "silent"))
+console.log(isAnagram("hello", "world"))
+console.log(isAnagram("Dormitory", "Dirty room"))
+console.log(isAnagram("aab", "abb"))
+console.log(isAnagramFaster("listen", "silent"))
+console.log(isAnagramFaster("hello", "world"))
+console.log(isAnagramFaster("Dormitory", "Dirty room"))
+console.log(isAnagramFaster("aab", "abb"))
